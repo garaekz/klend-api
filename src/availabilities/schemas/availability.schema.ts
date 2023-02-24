@@ -8,6 +8,9 @@ export class Availability {
   @Prop()
   title: string;
 
+  @Prop()
+  timezone: string;
+
   @Prop({
     type: [
       {

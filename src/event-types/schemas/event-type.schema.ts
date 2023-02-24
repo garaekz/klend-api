@@ -13,16 +13,19 @@ export class EventType {
   description: string;
 
   @Prop()
-  color: string;
+  color?: string;
 
   @Prop()
-  icon: string;
+  icon?: string;
 
   @Prop()
   slug: string;
 
   @Prop()
   duration: number;
+
+  @Prop()
+  isPublic: boolean;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
