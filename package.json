@@ -1,8 +1,9 @@
 {
   "name": "klend-api",
-  "version": "0.0.1",
+  "version": "1.0.0-prerelease.1",
   "description": "",
-  "author": "",
+  "author": "David Garay @garaekz",
+  "repository": "https://github.com/garaekz/klend-api",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -24,12 +25,15 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/jwt": "^10.0.2",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.2.1",
     "mongoose": "^6.9.2",
     "passport": "^0.6.0",
+    "passport-github": "^1.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -72,6 +76,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/../src/$1"
+    }
   }
 }

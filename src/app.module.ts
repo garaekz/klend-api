@@ -8,6 +8,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AvailabilitiesModule } from './availabilities/availabilities.module';
 import { mongoURI } from './config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { mongoURI } from './config';
     EventTypesModule,
     CompaniesModule,
     AvailabilitiesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

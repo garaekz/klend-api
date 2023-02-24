@@ -11,8 +11,11 @@ export class User {
   @Prop()
   email: string;
 
-  @Prop()
+  @Prop({ select: false, default: null })
   password: string;
+
+  @Prop()
+  username: string;
 
   @Prop()
   role: string;
