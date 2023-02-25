@@ -64,8 +64,8 @@ describe('EventTypesService', () => {
     });
 
     it('should throw an error', async () => {
-      jest.spyOn(mockModel, 'find').mockRejectedValue(new Error('Error'));
-      await expect(service.findAll()).rejects.toThrowError('Error');
+      jest.spyOn(mockModel, 'find').mockRejectedValue(new Error('Test Error'));
+      await expect(service.findAll()).rejects.toThrowError('Test Error');
     });
   });
 
@@ -79,10 +79,10 @@ describe('EventTypesService', () => {
     });
 
     it('should throw an error', async () => {
-      jest.spyOn(mockModel, 'findById').mockRejectedValue(new Error('Error'));
+      jest.spyOn(mockModel, 'findById').mockRejectedValue(new Error('Test Error'));
       await expect(
         service.findOne('5f9f1b9b9b9b9b9b9b9b9b9b'),
-      ).rejects.toThrowError('Error');
+      ).rejects.toThrowError('Test Error');
     });
   });
 
@@ -96,12 +96,11 @@ describe('EventTypesService', () => {
     });
 
     it('should throw an error', async () => {
-      jest
-        .spyOn(mockModel, 'create')
-        .mockRejectedValue(new Error('Unexpected Error') as never);
+      const spy: jest.RejectedValue<any> = jest.spyOn(mockModel, 'create');
+      spy.mockRejectedValue(new Error('Test Error'));
       await expect(
         service.create(mockedCreateEventTypeDto),
-      ).rejects.toThrowError('Unexpected Error');
+      ).rejects.toThrowError('Test Error');
       expect(mockModel.create).toBeCalledTimes(1);
     });
   });
@@ -128,10 +127,10 @@ describe('EventTypesService', () => {
     it('should throw an error', async () => {
       jest
         .spyOn(mockModel, 'findByIdAndUpdate')
-        .mockRejectedValue(new Error('Error'));
+        .mockRejectedValue(new Error('Test Error'));
       await expect(
         service.update('5f9f1b9b9b9b9b9b9b9b9b9b', eventTypesMockData[0]),
-      ).rejects.toThrowError('Error');
+      ).rejects.toThrowError('Test Error');
     });
   });
 
@@ -154,10 +153,10 @@ describe('EventTypesService', () => {
     it('should throw an error', async () => {
       jest
         .spyOn(mockModel, 'findByIdAndDelete')
-        .mockRejectedValue(new Error('Error'));
+        .mockRejectedValue(new Error('Test Error'));
       await expect(
         service.remove('5f9f1b9b9b9b9b9b9b9b9b9b'),
-      ).rejects.toThrowError('Error');
+      ).rejects.toThrowError('Test Error');
     });
   });
 });

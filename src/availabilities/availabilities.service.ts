@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateAvailabilityDto } from './dto/create-availability.dto';
 import { UpdateAvailabilityDto } from './dto/update-availability.dto';
+import {
+  Availability,
+  AvailabilityDocument,
+} from './schemas/availability.schema';
 
 @Injectable()
 export class AvailabilitiesService {
-  create(createAvailabilityDto: CreateAvailabilityDto) {
-    return 'This action adds a new availability';
+  constructor(
+    @InjectModel(Availability.name) private model: Model<AvailabilityDocument>,
+  ) {}
+
+  async create(
+    createAvailabilityDto: CreateAvailabilityDto,
+  ): Promise<Availability> {
+    return await this.model.create(createAvailabilityDto);
   }
 
-  findAll() {
-    return `This action returns all availabilities`;
+  async findAll(): Promise<Availability[]> {
+    return await this.model.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} availability`;
+  async findOne(id: string): Promise<Availability> {
+    return await this.model.findById(id);
   }
 
-  update(id: number, updateAvailabilityDto: UpdateAvailabilityDto) {
-    return `This action updates a #${id} availability`;
+  async update(
+    id: string,
+    updateAvailabilityDto: UpdateAvailabilityDto,
+  ): Promise<Availability> {
+    return await this.model.findByIdAndUpdate(id, updateAvailabilityDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} availability`;
+  async remove(id: string): Promise<Availability> {
+    return await this.model.findByIdAndDelete(id);
   }
 }

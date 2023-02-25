@@ -11,7 +11,7 @@ export class EventTypesService {
     @InjectModel(EventType.name) private model: Model<EventTypeDocument>,
   ) {}
 
-  async create(createEventTypeDto: CreateEventTypeDto) {
+  async create(createEventTypeDto: CreateEventTypeDto): Promise<EventType> {
     return await this.model.create(createEventTypeDto);
   }
 

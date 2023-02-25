@@ -3,6 +3,14 @@ import { HydratedDocument } from 'mongoose';
 
 export type AvailabilityDocument = HydratedDocument<Availability>;
 
+export interface Day {
+  day: string;
+  enabled: boolean;
+  times: {
+    start: string;
+    end: string;
+  }[];
+}
 @Schema({ timestamps: true, versionKey: false })
 export class Availability {
   @Prop()
@@ -25,14 +33,7 @@ export class Availability {
       },
     ],
   })
-  days: {
-    day: string;
-    enabled: boolean;
-    times: {
-      start: string;
-      end: string;
-    }[];
-  }[];
+  days: Day[];
 }
 
 export const AvailabilitySchema = SchemaFactory.createForClass(Availability);
