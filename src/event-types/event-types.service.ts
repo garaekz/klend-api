@@ -1,26 +1,38 @@
+import { EventType, EventTypeDocument } from './schemas/event-type.schema';
 import { Injectable } from '@nestjs/common';
 import { CreateEventTypeDto } from './dto/create-event-type.dto';
 import { UpdateEventTypeDto } from './dto/update-event-type.dto';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class EventTypesService {
-  create(createEventTypeDto: CreateEventTypeDto) {
-    return 'This action adds a new eventType';
+  constructor(
+    @InjectModel(EventType.name) private model: Model<EventTypeDocument>,
+  ) {}
+
+  async create(createEventTypeDto: CreateEventTypeDto) {
+    return await this.model.create(createEventTypeDto);
   }
 
-  findAll() {
-    return `This action returns all eventTypes`;
+  async findAll(): Promise<EventType[]> {
+    return this.model.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} eventType`;
+  async findOne(id: string): Promise<EventType> {
+    return this.model.findById(id);
   }
 
-  update(id: number, updateEventTypeDto: UpdateEventTypeDto) {
-    return `This action updates a #${id} eventType`;
+  async update(
+    id: string,
+    updateEventTypeDto: UpdateEventTypeDto,
+  ): Promise<EventType> {
+    return await this.model.findByIdAndUpdate(id, updateEventTypeDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} eventType`;
+  async remove(id: string): Promise<EventType> {
+    return await this.model.findByIdAndDelete(id);
   }
 }
