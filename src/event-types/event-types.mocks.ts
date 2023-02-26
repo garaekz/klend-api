@@ -1,7 +1,6 @@
 import { User } from '@/users/schemas/user.schema';
-import { Types } from 'mongoose';
 import { CreateEventTypeDto } from './dto/create-event-type.dto';
-import { EventType, EventTypeDocument } from './schemas/event-type.schema';
+import { EventType } from './schemas/event-type.schema';
 
 export interface MockEventType extends Omit<EventType, '_id'> {
   _id?: string;

@@ -18,9 +18,6 @@ export class User {
   username: string;
 
   @Prop()
-  role: string;
-
-  @Prop()
   avatar?: string;
 
   @Prop()

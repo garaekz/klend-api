@@ -79,7 +79,9 @@ describe('EventTypesService', () => {
     });
 
     it('should throw an error', async () => {
-      jest.spyOn(mockModel, 'findById').mockRejectedValue(new Error('Test Error'));
+      jest
+        .spyOn(mockModel, 'findById')
+        .mockRejectedValue(new Error('Test Error'));
       await expect(
         service.findOne('5f9f1b9b9b9b9b9b9b9b9b9b'),
       ).rejects.toThrowError('Test Error');
