@@ -20,8 +20,8 @@ export class EventTypesController {
   async create(@Body() createEventTypeDto: CreateEventTypeDto) {
     try {
       return {
-        status: 201,
-        data: await this.service.create(createEventTypeDto)
+        statusCode: 201,
+        data: await this.service.create(createEventTypeDto),
       };
     } catch (error) {
       throw error;
@@ -32,7 +32,7 @@ export class EventTypesController {
   async findAll() {
     try {
       return {
-        status: 200,
+        statusCode: 200,
         data: await this.service.findAll(),
       };
     } catch (error) {
@@ -48,7 +48,7 @@ export class EventTypesController {
         throw new NotFoundException('Event Type Not Found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: eventType,
       };
     } catch (error) {
@@ -67,7 +67,7 @@ export class EventTypesController {
         throw new NotFoundException('Event Type Not Found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: eventType,
       };
     } catch (error) {
@@ -83,7 +83,7 @@ export class EventTypesController {
         throw new NotFoundException('Event Type Not Found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: eventType,
       };
     } catch (error) {

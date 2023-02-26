@@ -4,7 +4,7 @@ import { eventTypesMockData } from './event-types.mocks';
 import { EventTypesService } from './event-types.service';
 
 const responseData = {
-  status: 200,
+  statusCode: 200,
   data: eventTypesMockData[0],
 };
 
@@ -42,7 +42,7 @@ describe('EventTypesController', () => {
       const all = await controller.findAll();
 
       expect(all).toEqual({
-        status: 200,
+        statusCode: 200,
         data: eventTypesMockData,
       });
 
@@ -56,7 +56,7 @@ describe('EventTypesController', () => {
       const all = await controller.findAll();
 
       expect(all).toEqual({
-        status: 200,
+        statusCode: 200,
         data: [],
       });
       expect(all.data.length).toBe(0);
@@ -105,7 +105,7 @@ describe('EventTypesController', () => {
       const one = await controller.create(eventTypesMockData[0]);
 
       expect(one).toEqual({
-        status: 201,
+        statusCode: 201,
         data: eventTypesMockData[0],
       });
       expect(service.create).toBeCalledTimes(1);

@@ -1,5 +1,5 @@
 import { CreateAvailabilityDto } from './dto/create-availability.dto';
-import { Availability, Day } from './schemas/availability.schema';
+import { Availability } from './schemas/availability.schema';
 
 export interface MockAvailability extends Availability {
   _id: string;

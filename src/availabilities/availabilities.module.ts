@@ -11,6 +11,6 @@ import { AvailabilitySchema } from './schemas/availability.schema';
     ]),
   ],
   controllers: [AvailabilitiesController],
-  providers: [AvailabilitiesService]
+  providers: [AvailabilitiesService],
 })
 export class AvailabilitiesModule {}

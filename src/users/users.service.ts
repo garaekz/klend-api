@@ -9,16 +9,16 @@ import { User, UserDocument } from './schemas/user.schema';
 export class UsersService {
   constructor(@InjectModel(User.name) private model: Model<UserDocument>) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+    return await this.model.create(createUserDto);
   }
 
   findAll() {
     return `This action returns all users`;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<UserDocument> {
+    return await this.model.findById(id);
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
@@ -30,13 +30,17 @@ export class UsersService {
   }
 
   async findOrCreate(data: any, providerId: string) {
-    const user = await this.model.findOne({ [providerId]: data.id }).exec();
+    const user = await this.model.findOne({ [providerId]: data.id });
     if (!user) {
-      const newUser = new this.model({
+      return await this.model.create({
         [providerId]: data.id,
+        ...data,
       });
-      return newUser.save().then((user) => user);
     }
     return user;
+  }
+
+  async findOneByProviderId(providerId: string, id: string) {
+    return await this.model.findOne({ [providerId]: id });
   }
 }

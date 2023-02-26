@@ -47,7 +47,7 @@ describe('AvailabilitiesController', () => {
       expect(
         await controller.create(mockedCreateAvailabilityDto),
       ).toStrictEqual({
-        status: 200,
+        statusCode: 200,
         data: availabilitiesMockData[0],
       });
     });
@@ -68,7 +68,7 @@ describe('AvailabilitiesController', () => {
 
     it('should return the result of service.findAll', async () => {
       expect(await controller.findAll()).toStrictEqual({
-        status: 200,
+        statusCode: 200,
         data: availabilitiesMockData,
       });
     });
@@ -89,7 +89,7 @@ describe('AvailabilitiesController', () => {
 
     it('should return the result of service.findOne', async () => {
       expect(await controller.findOne(mockId)).toStrictEqual({
-        status: 200,
+        statusCode: 200,
         data: availabilitiesMockData[0],
       });
     });
@@ -115,7 +115,7 @@ describe('AvailabilitiesController', () => {
       expect(
         await controller.update(mockId, mockedCreateAvailabilityDto),
       ).toStrictEqual({
-        status: 200,
+        statusCode: 200,
         data: availabilitiesMockData[0],
       });
     });
@@ -136,7 +136,7 @@ describe('AvailabilitiesController', () => {
 
     it('should return the result of service.remove', async () => {
       expect(await controller.remove(mockId)).toStrictEqual({
-        status: 200,
+        statusCode: 200,
         data: availabilitiesMockData[0],
       });
     });

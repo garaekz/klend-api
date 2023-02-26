@@ -28,6 +28,10 @@ export class OrganizationsService {
     return this.model.findById(id);
   }
 
+  async findBySlug(slug: string): Promise<Organization> {
+    return await this.model.findOne({ slug });
+  }
+
   async update(
     id: string,
     updateOrganizationDto: UpdateOrganizationDto,

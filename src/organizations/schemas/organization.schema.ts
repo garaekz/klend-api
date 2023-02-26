@@ -1,6 +1,5 @@
-import { User, UserSchema } from '@/users/schemas/user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type OrganizationDocument = HydratedDocument<Organization>;
 
@@ -9,13 +8,16 @@ export class Organization {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ type: [UserSchema] })
-  users: User[];
+  @Prop({ required: true })
+  slug: string;
 
-  @Prop({ type: User, ref: 'User' })
-  owner: User;
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
+  users: Types.ObjectId[];
 
-  @Prop({ default: true })
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  owner: Types.ObjectId;
+
+  @Prop({ default: false })
   mainCompany: boolean;
 }
 

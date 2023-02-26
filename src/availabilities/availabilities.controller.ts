@@ -20,7 +20,7 @@ export class AvailabilitiesController {
   async create(@Body() createAvailabilityDto: CreateAvailabilityDto) {
     try {
       return {
-        status: 200,
+        statusCode: 200,
         data: await this.availabilitiesService.create(createAvailabilityDto),
       };
     } catch (error) {
@@ -32,7 +32,7 @@ export class AvailabilitiesController {
   async findAll() {
     try {
       return {
-        status: 200,
+        statusCode: 200,
         data: await this.availabilitiesService.findAll(),
       };
     } catch (error) {
@@ -48,7 +48,7 @@ export class AvailabilitiesController {
         throw new NotFoundException('Availability not found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: availability,
       };
     } catch (error) {
@@ -70,7 +70,7 @@ export class AvailabilitiesController {
         throw new NotFoundException('Availability not found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: availability,
       };
     } catch (error) {
@@ -86,7 +86,7 @@ export class AvailabilitiesController {
         throw new NotFoundException('Availability not found');
       }
       return {
-        status: 200,
+        statusCode: 200,
         data: availability,
       };
     } catch (error) {

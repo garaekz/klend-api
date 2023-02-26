@@ -1,25 +1,25 @@
 import { GithubOAuthGuard } from '@/github-oauth.guard';
-import { Controller, Get, Request, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { jwtSecret } from '@/config';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly service: AuthService) {}
-
-  @Get()
-  getHello(): string {
-    return 'Nothing here!';
-  }
+  constructor(
+    private readonly service: AuthService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   @Get('github')
   @UseGuards(GithubOAuthGuard)
-  async socialAuth(@Request() _req) {
+  async socialAuth() {
     return;
   }
 
   @Get('github/callback')
   @UseGuards(GithubOAuthGuard)
-  providerAuthRedirect(@Request() req, @Param('provider') provider: string) {
+  async providerAuthRedirect(@Request() req: any) {
     const data = {
       id: req.user.id,
       name: req.user.displayName,
@@ -28,6 +28,18 @@ export class AuthController {
       avatar: req.user.photos[0].value,
     };
 
-    return this.service.socialLogin(data, provider);
+    const user = await this.service.socialLogin(data, 'github');
+
+    const payload = {
+      sub: user._id,
+      username: user.username,
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload, {
+        secret: jwtSecret,
+        expiresIn: '1d',
+      }),
+    };
   }
 }
