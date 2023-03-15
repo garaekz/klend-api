@@ -94,6 +94,13 @@ describe('AvailabilitiesController', () => {
       });
     });
 
+    it('should throw an error if service.findOne returns null', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(null);
+      await expect(() => controller.findOne(mockId)).rejects.toThrowError(
+        'Availability not found',
+      );
+    });
+
     it('should throw an error if service.findOne throws an error', async () => {
       jest.spyOn(service, 'findOne').mockRejectedValue(new Error('Test Error'));
       await expect(() => controller.findOne(mockId)).rejects.toThrowError(
@@ -120,6 +127,13 @@ describe('AvailabilitiesController', () => {
       });
     });
 
+    it('should throw an error if service.update returns null', async () => {
+      jest.spyOn(service, 'update').mockResolvedValue(null);
+      await expect(() =>
+        controller.update(mockId, mockedCreateAvailabilityDto),
+      ).rejects.toThrowError('Availability not found');
+    });
+
     it('should throw an error if service.update throws an error', async () => {
       jest.spyOn(service, 'update').mockRejectedValue(new Error('Test Error'));
       await expect(() =>
@@ -139,6 +153,13 @@ describe('AvailabilitiesController', () => {
         statusCode: 200,
         data: availabilitiesMockData[0],
       });
+    });
+
+    it('should throw an error if service.remove returns null', async () => {
+      jest.spyOn(service, 'remove').mockResolvedValue(null);
+      await expect(() => controller.remove(mockId)).rejects.toThrowError(
+        'Availability not found',
+      );
     });
 
     it('should throw an error if service.remove throws an error', async () => {

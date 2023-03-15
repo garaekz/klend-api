@@ -1,3 +1,4 @@
+import { organizationsMockData } from './../organizations/organizations.mocks';
 import { HydratedDocument } from 'mongoose';
 import { OrganizationsService } from '@/organizations/organizations.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -102,6 +103,28 @@ describe('AuthService', () => {
         mainCompany: true,
         owner: usersMockData[0]._id,
         slug: usersMockData[0].username.toLowerCase(),
+      });
+      expect(result).toEqual(usersMockData[0]);
+    });
+
+    it('should create a unique slug if slug already exists', async () => {
+      jest.spyOn(userService, 'findOneByProviderId').mockResolvedValue(null);
+      jest
+        .spyOn(orgService, 'findBySlug')
+        .mockResolvedValueOnce(organizationsMockData[0]);
+
+      const result = await service.socialLogin(
+        { id: 'provider-id', username: 't1' },
+        'google',
+      );
+
+      expect(orgService.create).toBeCalledWith({
+        name: `${usersMockData[0].username}'s Organization`,
+        mainCompany: true,
+        owner: usersMockData[0]._id,
+        slug: `${usersMockData[0].username.toLowerCase()}-${
+          usersMockData[0]._id
+        }`,
       });
       expect(result).toEqual(usersMockData[0]);
     });

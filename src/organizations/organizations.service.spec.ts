@@ -1,6 +1,5 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { create } from 'domain';
 import { Model } from 'mongoose';
 import { organizationsMockData } from './organizations.mocks';
 import { OrganizationsService } from './organizations.service';

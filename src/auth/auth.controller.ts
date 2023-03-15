@@ -1,5 +1,5 @@
 import { GithubOAuthGuard } from '@/github-oauth.guard';
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtSecret } from '@/config';
 import { AuthService } from './auth.service';
@@ -11,10 +11,10 @@ export class AuthController {
     private readonly jwtService: JwtService,
   ) {}
 
-  @Get('github')
+  @Post('signin/github')
   @UseGuards(GithubOAuthGuard)
   async socialAuth() {
-    return;
+    //
   }
 
   @Get('github/callback')
@@ -26,6 +26,37 @@ export class AuthController {
       username: req.user.username,
       email: req.user.emails[0].value,
       avatar: req.user.photos[0].value,
+    };
+
+    const user = await this.service.socialLogin(data, 'github');
+
+    const payload = {
+      sub: user._id,
+      username: user.username,
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload, {
+        secret: jwtSecret,
+        expiresIn: '1d',
+      }),
+    };
+  }
+
+  @Post('github')
+  async githubToken(@Request() req: any) {
+    const allowedProviders = ['github'];
+    const { user: socialUser, provider } = req.body;
+    console.log('user:', socialUser);
+    if (!socialUser || !provider || !allowedProviders.includes(provider)) {
+      return null;
+    }
+    const data = {
+      id: socialUser.id,
+      name: socialUser.name,
+      username: socialUser.username,
+      email: socialUser.email,
+      avatar: socialUser.image,
     };
 
     const user = await this.service.socialLogin(data, 'github');

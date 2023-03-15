@@ -15,8 +15,14 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return system info', () => {
+      expect(appController.getInfo()).toStrictEqual({
+        name: '📆 Klend API',
+        version: '1.0.0-prerelease.1',
+        description: 'Schedule your life',
+        status: '🚀 Dev Version',
+        author: '🐱‍💻 @garaekz',
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 import { OrganizationsService } from '@/organizations/organizations.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '@/users/users.service';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { GithubStrategy } from './strategies/github.strategy';

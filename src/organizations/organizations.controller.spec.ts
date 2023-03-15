@@ -30,29 +30,4 @@ describe('OrganizationsController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
-
-  describe('create', () => {
-    it('should call service.create', () => {
-      const createOrganizationDto = {
-        name: 'test',
-        users: [],
-        owner: {},
-        mainCompany: true,
-      };
-      controller.create(createOrganizationDto);
-      expect(service.create).toHaveBeenCalledWith(createOrganizationDto);
-    });
-
-    it('should return the result of service.create', () => {
-      const createOrganizationDto = {
-        name: 'test',
-        users: [],
-        owner: {},
-        mainCompany: true,
-      };
-      const result = { id: '1', ...createOrganizationDto };
-      jest.spyOn(service, 'create').mockImplementation(() => result);
-      expect(controller.create(createOrganizationDto)).toBe(result);
-    });
-  });
 });
